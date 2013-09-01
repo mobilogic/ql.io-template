@@ -1,6 +1,6 @@
 PACKS = tables routes lib
-BUILD_MACHINE = PUT_YOUR_ADDRESS
-DEPLOY_MACHINE = PUT_YOUR_ADDRESS
+BUILD_MACHINE = 0.0.0.0
+DEPLOY_MACHINE = 1.1.1.1
 KEY = testkey.pem
 all: clean install 
 
