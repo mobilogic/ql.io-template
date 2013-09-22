@@ -10,11 +10,13 @@ clean:
 	-rm -fr pids
 
 install:
+	npm link ql.io-compiler;\
+	npm link ql.io-app;\
 	-mkdir pids;mkdir logs;\
 	npm install
 	-mkdir tables
 	-mkdir routes
-	_mkdir lib
+	-mkdir lib
 
 build:
 	rm -rf  _tmp_packs
@@ -27,13 +29,11 @@ build:
 	tar -zcvf packs.tar.gz *;\
 	cd ..;\
 	scp -i $(KEY) _tmp_packs/packs.tar.gz ubuntu@$(BUILD_MACHINE):downloads;\
-	ssh -i $(KEY) ubuntu@$(BUILD_MACHINE) "curl https://gist.github.com/iamhamilton/605139b02dff1e749aac/raw/2910ffd0480dd923fc9ad7288127eafe92710ef1/build.sh | bash";\
+	ssh -i $(KEY) ubuntu@$(BUILD_MACHINE) "curl https://gist.github.com/iamhamilton/605139b02dff1e749aac/raw/077b92bafb441654157dfad440443a8213828cd9/build.sh | bash";\
 
-testbuild:
-	ssh -i $(KEY) ubuntu@$(BUILD_MACHINE) "curl https://gist.github.com/iamhamilton/7b2936ca05d95ce0f1b7/raw/4b13ce42d49ceb9bfc17019c6b5d23e1447fdc25/hello.sh | bash";\
 
 deploy:
-	ssh -i $(KEY) ubuntu@$(BUILD_MACHINE) ". bar2.sh $(DEPLOY_MACHINE)"
+	ssh -i $(KEY) ubuntu@$(BUILD_MACHINE) "curl https://gist.github.com/iamhamilton/dfe36c7b2da9e79e2e41/raw/66963c1e7ee06e7c6d64d78c7d589262b4346ba7/deploy.sh | bash -s $(DEPLOY_MACHINE)"
 	ssh -i $(KEY) ubuntu@$(DEPLOY_MACHINE) "sudo rm -rf ql.io-template;tar -zxvf deploy.tar.gz;cd ql.io-template;sudo bin/start.sh &"
 
 start:
